@@ -109,6 +109,7 @@ export function createInfoPageMD({
 }: InfoPageMetadata) {
   return render([
     `import ApiLogo from "@theme/ApiLogo";\n`,
+    `import Authentication from "@theme/Authentication";\n`,
     `import Heading from "@theme/Heading";\n`,
     `import SchemaTabs from "@theme/SchemaTabs";\n`,
     `import TabItem from "@theme/TabItem";\n`,

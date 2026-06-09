@@ -157,6 +157,12 @@ function groupByTags(
     rootIntroDoc = {
       type: "doc" as const,
       id: docId,
+      // An explicit label marks the item as `translatable`, so Docusaurus
+      // extracts `sidebar.<name>.doc.<label>` into the docs plugin translation
+      // file (current.json) and localizes it per-locale (sidebar + breadcrumb).
+      // Without a label the sidebar_label frontmatter would be used, which is
+      // baked at generation time and therefore not translatable.
+      label: (infoItem.frontMatter?.sidebar_label as string) ?? "Introduction",
       ...(tagGroupKey && { key: kebabCase(`${tagGroupKey}-${docId}`) }),
     };
   }
