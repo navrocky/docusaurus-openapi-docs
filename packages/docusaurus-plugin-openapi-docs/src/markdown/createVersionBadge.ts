@@ -9,14 +9,7 @@ import { create, guard } from "./utils";
 
 export function createVersionBadge(version: string | undefined) {
   return guard(version, (version) => [
-    create(
-      "span",
-      {
-        className: "theme-doc-version-badge badge badge--secondary",
-        children: `Version: ${escape(version)}`,
-      },
-      { inline: true }
-    ),
+    create("ApiVersionBadge", { version: escape(version) }, { inline: true }),
     `\n\n`,
   ]);
 }

@@ -5,36 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { create, guard } from "./utils";
+import { create } from "./utils";
 import { LicenseObject } from "../openapi/types";
 
 export function createLicense(license: LicenseObject) {
   if (!license || !Object.keys(license).length) return "";
   const { name, url, identifier } = license;
 
-  return create("div", {
-    style: {
-      marginBottom: "var(--ifm-paragraph-margin-bottom)",
-    },
-    children: [
-      create("h3", {
-        style: {
-          marginBottom: "0.25rem",
-        },
-        children: "License",
-      }),
-      guard(url, () =>
-        create("a", {
-          href: url,
-          children: name ?? url,
-        })
-      ),
-      guard(identifier, () =>
-        create("a", {
-          href: `https://spdx.org/licenses/${identifier}.html`,
-          children: name ?? identifier,
-        })
-      ),
-    ],
+  return create("License", {
+    name: name,
+    url: url,
+    identifier: identifier,
   });
 }

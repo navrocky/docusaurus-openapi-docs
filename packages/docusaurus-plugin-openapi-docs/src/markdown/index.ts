@@ -66,6 +66,7 @@ export function createApiPageMD({
   frontMatter,
 }: ApiPageMetadata) {
   return render([
+    `import Callbacks from "@theme/Callbacks";\n`,
     `import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";\n`,
     `import ParamsDetails from "@theme/ParamsDetails";\n`,
     `import RequestSchema from "@theme/RequestSchema";\n`,
@@ -109,10 +110,14 @@ export function createInfoPageMD({
 }: InfoPageMetadata) {
   return render([
     `import ApiLogo from "@theme/ApiLogo";\n`,
+    `import ApiVersionBadge from "@theme/ApiVersionBadge";\n`,
     `import Authentication from "@theme/Authentication";\n`,
+    `import Contact from "@theme/Contact";\n`,
     `import Heading from "@theme/Heading";\n`,
+    `import License from "@theme/License";\n`,
     `import SchemaTabs from "@theme/SchemaTabs";\n`,
     `import TabItem from "@theme/TabItem";\n`,
+    `import TermsOfService from "@theme/TermsOfService";\n`,
     `import Export from "@theme/ApiExplorer/Export";\n\n`,
 
     createVersionBadge(version),

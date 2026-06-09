@@ -38,21 +38,8 @@ export function createCallbacks({ callbacks }: Props) {
     return undefined;
   }
 
-  return create("div", {
+  return create("Callbacks", {
     children: [
-      create("div", {
-        className: "openapi__divider",
-      }),
-      create(
-        "Heading",
-        {
-          children: "Callbacks",
-          id: "callbacks",
-          as: "h2",
-          className: "openapi-tabs__heading",
-        },
-        { inline: true }
-      ),
       create("OperationTabs", {
         className: "openapi-tabs__operation",
         children: callbacksNames.flatMap((name) => {
@@ -85,9 +72,10 @@ export function createCallbacks({ callbacks }: Props) {
                     title: "Body",
                     body: requestBody,
                   } as RequestBodyProps),
+                  // No custom label: StatusCodes falls back to the localized
+                  // "Responses" label (theme.openapi.tabs.responses.label).
                   createStatusCodes({
                     id: "callbacks-responses",
-                    label: "Callbacks Responses",
                     responses,
                   }),
                 ],
