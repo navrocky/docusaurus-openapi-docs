@@ -24,7 +24,7 @@
   "types": "src/theme-openapi.d.ts",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc --build && node ../../scripts/copyUntypedFiles.mjs && prettier --config ../../.prettierrc.json --write \"lib/theme/**/*.js\"",
+    "build": "node scripts/gen-default-translations.mjs && tsc --build && tsc -p tsconfig.theme.json && node ../../scripts/copyUntypedFiles.mjs && prettier --config ../../.prettierrc.json --write \"lib/theme/**/*.js\"",
     "watch": "concurrently --names \"tsc,copy\" --kill-others \"tsc --build --watch\" \"node ../../scripts/copyUntypedFiles.mjs && node ../../scripts/copyUntypedFiles.mjs --watch\""
   },
   "devDependencies": {

@@ -1,0 +1,18 @@
+{
+  // Second build pass: re-emit ONLY the theme components (src/theme -> lib/theme)
+  // as ESM. The main tsconfig.json emits CommonJS (needed for the Node-loaded
+  // plugin entry lib/index.js), but Docusaurus' translation extractor and swizzle
+  // read theme components from getThemePath() and only understand ES `import`
+  // bindings — CommonJS `(0, Translate_1.translate)(...)` is invisible to them.
+  // Emitting lib/theme as ESM (like @docusaurus/theme-classic) makes every
+  // `translate({ id, message })` call extractable by `docusaurus write-translations`.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "noEmit": false,
+    "outDir": "lib"
+  },
+  // Include the ambient *.d.ts (e.g. theme-classic.d.ts declares @theme/* modules)
+  // so the theme-only pass type-checks the same as the full src build.
+  "include": ["src/theme", "src/*.d.ts"]
+}

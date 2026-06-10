@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
+import fs from "fs";
 import path from "path";
 
 import type { Plugin } from "@docusaurus/types";
@@ -28,6 +29,20 @@ export default function docusaurusThemeOpenAPI(): Plugin<void> {
 
     getTypeScriptThemePath() {
       return path.resolve(__dirname, "..", "src", "theme");
+    },
+
+    // Surfaces every `theme.openapi.*` id to `docusaurus write-translations`.
+    // write-translations only extracts a theme's strings from getThemePath()
+    // (the compiled lib/, where the babel extractor can't see the calls), so —
+    // like @docusaurus/theme-classic — we ship the default messages explicitly.
+    // base.json is generated from source by scripts/gen-default-translations.mjs
+    // and copied to lib/theme-translations/ at build time.
+    getDefaultCodeTranslationMessages() {
+      const baseFile = path.join(__dirname, "theme-translations", "base.json");
+      return JSON.parse(fs.readFileSync(baseFile, "utf-8")) as Record<
+        string,
+        string
+      >;
     },
 
     configureWebpack(_, isServer, utils) {
